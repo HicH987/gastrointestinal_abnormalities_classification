@@ -4,7 +4,7 @@
 
   Le notebook est disponible et pret a etre execute sur Kaggle et Colab depuit les liens suivent:
 
-  <a href="https://githubtocolab.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>     <a href='https://github.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb' target="_blank"><img alt='Github' src='https://img.shields.io/badge/Open_in GitHub-100000?style=flat&logo=Github&logoColor=white&labelColor=000000&color=FFFFFF'/></a>  <a href='https://www.kaggle.com/hitsh987/endoscopy-multiclassification' target="_blank"><img alt='Kaggle' src='https://img.shields.io/badge/Open_in Kaggle-100000?style=flat&logo=Kaggle&logoColor=009AD3&labelColor=FFFFFF&color=009AD3'/></a>
+  <a href="https://githubtocolab.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>   <a href='https://github.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb' target="_blank"><img alt='Github' src='https://img.shields.io/badge/Open_in GitHub-100000?style=flat&logo=Github&logoColor=white&labelColor=000000&color=FFFFFF'/></a>  <a href='https://www.kaggle.com/hitsh987/endoscopy-multiclassification' target="_blank"><img alt='Kaggle' src='https://img.shields.io/badge/Open_in Kaggle-100000?style=flat&logo=Kaggle&logoColor=009AD3&labelColor=FFFFFF&color=009AD3'/></a>
 
 ## **Dataset**
 
@@ -197,6 +197,7 @@ x_train:(800, 100, 100, 3),  y_train:(800, 1)
 Nous devons faire un encodage à chaud (OneHot Encoding) avec `to_categorical`, pour transformer l'ensemble des lables (`y_train`, `y_val` et `y_test`) de tel sorte à avoir un vecteur pour chaque exemple, car nous avons 8 classes et nous devrions nous attendre à ce que la forme de (`y_train`, `y_val` et `y_test`) passe de 1 à 8
 
 ```
+
 x_train:(2300, 100, 100, 3),  y_train:(2300, 8)
 x_train:(900, 100, 100, 3),  y_train:(900, 8)
 x_train:(800, 100, 100, 3),  y_train:(800, 8)
