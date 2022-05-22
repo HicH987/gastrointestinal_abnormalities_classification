@@ -1,10 +1,12 @@
-### **Ouvrire le notebook avec:**
-
-Le notebook est disponible et pret a etre execute sur Kaggle et Colab depuit les liens suivent:
-
-<a href="https://githubtocolab.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>     <a href='https://github.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb' target="_blank"><img alt='Github' src='https://img.shields.io/badge/Open_in GitHub-100000?style=flat&logo=Github&logoColor=white&labelColor=000000&color=FFFFFF'/></a>  <a href='https://www.kaggle.com/hitsh987/endoscopy-multiclassification' target="_blank"><img alt='Kaggle' src='https://img.shields.io/badge/Open_in Kaggle-100000?style=flat&logo=Kaggle&logoColor=009AD3&labelColor=FFFFFF&color=009AD3'/></a>
-
 # **Classification des anomalies gastro-intestinaux par imagerie endoscopique avec apprentissage en profondeur**
+
+- ### **Ouvrire le notebook avec:**
+
+  Le notebook est disponible et pret a etre execute sur Kaggle et Colab depuit les liens suivent:
+
+  <a href="https://githubtocolab.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>     <a href='https://github.com/Hitsh987/projet_IARN/blob/master/endoscopy_multiClassification.ipynb' target="_blank"><img alt='Github' src='https://img.shields.io/badge/Open_in GitHub-100000?style=flat&logo=Github&logoColor=white&labelColor=000000&color=FFFFFF'/></a>  <a href='https://www.kaggle.com/hitsh987/endoscopy-multiclassification' target="_blank"><img alt='Kaggle' src='https://img.shields.io/badge/Open_in Kaggle-100000?style=flat&logo=Kaggle&logoColor=009AD3&labelColor=FFFFFF&color=009AD3'/></a>
+
+## **Dataset**
 
 Dans cette étude nous avons utilisé l'imagerie endoscopique du tractus gastro-intestinal humain afin de détecter différents types d'anomalies. Nous avons utilisé l'ensemble de données `KVASIR` pour cette tâche ainsi qu'un réseau de neurones convolutifs.
 
@@ -60,7 +62,7 @@ from keras.layers import Flatten, Dense, Dropout
 
 ### **1.1. Telecharger le dataset**
 
-Ici on vérifie l'environnement d'exécution du notebook (`Google Colab` ou `kaggle`), pour éviter de télécharger le dataset en local car sa taille dépasse les 1Gb.
+On vérifie l'environnement d'exécution du notebook (`Google Colab` ou `kaggle`), pour éviter de télécharger le dataset en local car sa taille dépasse les 1Gb.
 
 Pour ce faire on utilise une des platforme (`Google Colab` ou `kaggle`) pour exécuter notebook sans télécharge le dataset sur notre machine.
 
@@ -75,7 +77,7 @@ Procède:
 
 ### **1.2. Definier les categories du dataset**
 
-Ici on définit les catégories (classes) du dataset a partir des noms de dossiers du dataset.
+On définit les catégories (classes) du dataset a partir des noms de dossiers du dataset.
 Le dataset se compose de 8 dossiers (un pour chaque classe) nommer suivent leur catégorie, chaque dossier comporte 500 images.
 
 **Number of categories:  8**
@@ -173,17 +175,36 @@ Dans cette etap on cree:
 
 On divise les données (X, y) en ensemble d'entrainement et de test en utilisant 80 % des données pour l'apprentissage et les 20 % restants pour les tests.
 
+```
+X_train: (3200, 100, 100, 3)
+t_train: (3200, 1)
+X_test: (800, 100, 100, 3)
+y_test: (800, 1)
+```
+
 #### **2.1.2. Cree l'ensemble de validation `x_val/y_val`**
 
-Ici, nous on divise 30% de l'ensemble d'entrainement en ensemble de validation
+On divise 30% de l'ensemble d'entrainement en ensemble de validation
+
+```
+x_train:(2300, 100, 100, 3),  y_train:(2300, 1)
+x_train:(900, 100, 100, 3),  y_train:(900, 1)
+x_train:(800, 100, 100, 3),  y_train:(800, 1)
+```
 
 #### **2.1.3. Encodage à chaud (OneHot Encoding)**
 
 Nous devons faire un encodage à chaud (OneHot Encoding) avec `to_categorical`, pour transformer l'ensemble des lables (`y_train`, `y_val` et `y_test`) de tel sorte à avoir un vecteur pour chaque exemple, car nous avons 8 classes et nous devrions nous attendre à ce que la forme de (`y_train`, `y_val` et `y_test`) passe de 1 à 8
 
+```
+x_train:(2300, 100, 100, 3),  y_train:(2300, 8)
+x_train:(900, 100, 100, 3),  y_train:(900, 8)
+x_train:(800, 100, 100, 3),  y_train:(800, 8)
+```
+
 ### **2.2. Generation d'images**
 
-Ici, nous allons effectuer l'augmentation des données d'image. Il s'agit de la technique utilisée pour augmenter la taille d'un ensemble de données d'apprentissage en créant des versions modifiées d'images dans l'ensemble de données. La création de ces images modifié s'effectue en pivotent de manière aléatoire ces images de n'importe quel degré entre 0 et 360.
+On effectue l'augmentation des données d'image. Il s'agit de la technique utilisée pour augmenter la taille d'un ensemble de données d'apprentissage en créant des versions modifiées d'images dans l'ensemble de données. La création de ces images modifié s'effectue en pivotent de manière aléatoire ces images de n'importe quel degré entre 0 et 360.
 
 Tout d'abord, nous définirons des instances individuelles d'ImageDataGenerator pour l'augmentation, puis nous les adapterons à chacun des ensembles de données d'entraînement, de test et de validation.
 
@@ -245,11 +266,36 @@ Les hyperparamètres sont des paramètres réglables qui nous permettent de cont
 
 Comme nous avons défini notre modèle, nous devons maintenant initialiser les hyperparamètres nécessaires pour former le modèle, puis enfin, nous allons compiler notre modèle.
 
+```python
+""" Initializing the hyperparameters """
+
+# initialise le nombre d'échantillons d'apprentisage
+batch_size = 100
+
+# initialise le nombre d'iteration
+epochs = 50
+
+# taux d'apprentisage
+learn_rate = 0.001
+
+# initilisation de la descente du gradient
+sgd = SGD(learning_rate=learn_rate, momentum=0.9, nesterov=False)
+
+# compiler le model
+model.compile(optimizer=sgd, loss="categorical_crossentropy", metrics=["accuracy"]) 
+
+```
+
 La reduction de taux d'apprentissage diminue le taux d'apprentissage après un certain nombre d'iteration si le taux d'erreur ne change pas. Ici, grâce à cette technique, nous surveillerons la précision de la validation et si cela cessé de s'améliorer on réduira le taux d'apprentissage de 0,01.
+
+```python
+# Learning Rate Annealer
+lrr = ReduceLROnPlateau(monitor="val_acc", factor=0.01, patience=3, min_lr=1e-5)
+```
 
 ### **2.5. Entrainement du le model**
 
-Maintenant, nous commençons à former notre model.
+On commençons à former notre model.
 
 ## **3. Evaluation du model**
 
@@ -265,8 +311,6 @@ Evaluer la précision ainsi que la perte du model sur l'ensemble de test
 ### **3.2. Matrice de confusion**
 
 Enfin, nous visualiserons les performances de classification sur des données de test à l'aide de matrices de confusion.
-
-Affiche la matrice de confusion normalisée et non normalisée.
 
 Nous verrons le nombre exact de classifications correctes et incorrectes à l'aide de la matrice de confusion non normalisée, puis nous verrons la même chose en pourcentage à l'aide de la matrice de confusion normalisée.
 
